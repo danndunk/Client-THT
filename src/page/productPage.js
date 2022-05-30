@@ -45,7 +45,7 @@ export default function Products() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [showAdd, showEdit, showDelete]);
 
   return (
     <>

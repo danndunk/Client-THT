@@ -11,8 +11,8 @@ export default function ModalDelete(props) {
     try {
       e.preventDefault();
       const response = await API.delete("/product/" + props.deleteId);
-      console.log(response);
-      window.location.reload();
+
+      props.setShowDelete(false);
     } catch (error) {
       console.log(error);
     }

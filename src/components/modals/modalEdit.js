@@ -42,9 +42,6 @@ export default function ModalEdit(props) {
   const handleClose = () => {
     props.setShowEdit(false);
   };
-  const handleDelete = () => {
-    props.setShowEdit(false);
-  };
 
   const handleChange = (e) => {
     setForm({
@@ -75,8 +72,11 @@ export default function ModalEdit(props) {
       formData.set("hargaJual", form.hargaJual);
       formData.set("stok", form.stok);
 
-      const response = await API.post("/product", formData, config);
-      console.log(response);
+      const response = await API.patch(
+        "/product/" + props.editId,
+        formData,
+        config
+      );
 
       if (response.data.status === "success") {
         const alert = (
@@ -88,7 +88,7 @@ export default function ModalEdit(props) {
           </Alert>
         );
         setMessage(alert);
-        window.location.reload();
+        props.setShowEdit(false);
       } else {
         const alert = (
           <Alert
@@ -188,7 +188,7 @@ export default function ModalEdit(props) {
             <Button variant="danger" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit" variant="success" onClick={handleDelete}>
+            <Button type="submit" variant="success">
               Save
             </Button>
           </Modal.Footer>

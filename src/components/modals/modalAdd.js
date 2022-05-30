@@ -50,7 +50,6 @@ export default function ModalAdd(props) {
       formData.set("stok", form.stok);
 
       const response = await API.post("/product", formData, config);
-      console.log(response);
 
       if (response.data.status === "success") {
         const alert = (
@@ -58,11 +57,11 @@ export default function ModalAdd(props) {
             variant="success"
             className="py-1 d-flex justify-content-center"
           >
-            Success Add Book
+            Success Add Product
           </Alert>
         );
         setMessage(alert);
-        window.location.reload();
+        props.setShowAdd(false);
       } else {
         const alert = (
           <Alert
@@ -74,6 +73,7 @@ export default function ModalAdd(props) {
         );
         setMessage(alert);
       }
+      setMessage(null);
     } catch (error) {
       console.log(error);
     }
@@ -113,6 +113,15 @@ export default function ModalAdd(props) {
                 />
               </div>
             )}
+
+            <label
+              style={{ fontWeight: "600", fontSize: "20px", color: "black" }}
+            >
+              Input Image{" "}
+              <span style={{ color: "red", fontSize: "16px" }}>
+                (.jpg/.png only (max 100KB))
+              </span>
+            </label>
             <input
               type="file"
               name="image"

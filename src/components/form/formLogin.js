@@ -40,7 +40,6 @@ export default function FormLogin() {
       const body = JSON.stringify(form);
 
       const response = await API.post("/login", body, config);
-      console.log(response.data);
 
       if (response?.data.status === "success") {
         dispatch({
